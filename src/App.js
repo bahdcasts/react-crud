@@ -18,12 +18,28 @@ class App extends Component {
       }]
     };
 
+    this.addTodo = this.addTodo.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event) {
     this.setState({
       newTodo: event.target.value
+    });
+  }
+
+  addTodo() {
+    const newTodo = {
+      name: this.state.newTodo,
+      id: this.state.todos[this.state.todos.length - 1].id + 1
+    };
+
+    const todos = this.state.todos;
+    todos.push(newTodo);
+
+    this.setState({
+      todos: todos,
+      newTodo: ''
     });
   }
 
@@ -43,6 +59,11 @@ class App extends Component {
             onChange={this.handleChange}
             value={this.state.newTodo}
           />
+          <button
+            onClick={this.addTodo}
+            className="btn-info mb-3 form-control">
+            Add todo
+          </button>
           <ul className="list-group">
             {this.state.todos.map((item, index) => {
               return <li key={item.id} className="list-group-item">{item.name}</li>
