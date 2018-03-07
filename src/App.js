@@ -27,8 +27,8 @@ class App extends Component {
         <div className="container">
           <h2 className="text-center p-4">Todos App</h2>
           <ul className="list-group">
-            {this.state.todos.map((item) => {
-              return <li className="list-group-item">{item.name}</li>
+            {this.state.todos.map((item, index) => {
+              return <li key={item.id} className="list-group-item">{item.name}</li>
             })}     
           </ul>
         </div>
