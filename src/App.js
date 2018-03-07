@@ -6,6 +6,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
+      newTodo: '',
       todos: [{
         id: 1, name: 'Play golf'
       }, {
@@ -16,7 +17,16 @@ class App extends Component {
         id: 4, name: 'Watch Bahdcasts'
       }]
     };
+
+    this.handleChange = this.handleChange.bind(this);
   }
+
+  handleChange(event) {
+    this.setState({
+      newTodo: event.target.value
+    });
+  }
+
   render() {
     return (
       <div className="App">
@@ -25,7 +35,14 @@ class App extends Component {
           <h1 className="App-title">CRUD React</h1>
         </header>
         <div className="container">
-          <h2 className="text-center p-4">Todos App</h2>
+          <input
+            type="text"
+            name="todo"
+            className="my-4 form-control"
+            placeholder="Add a new todo"
+            onChange={this.handleChange}
+            value={this.state.newTodo}
+          />
           <ul className="list-group">
             {this.state.todos.map((item, index) => {
               return <li key={item.id} className="list-group-item">{item.name}</li>
