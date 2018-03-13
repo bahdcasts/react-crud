@@ -7,6 +7,7 @@ class App extends Component {
     super();
     this.state = {
       newTodo: '',
+      editing: false,
       todos: [{
         id: 1, name: 'Play golf'
       }, {
@@ -19,6 +20,7 @@ class App extends Component {
     };
 
     this.addTodo = this.addTodo.bind(this);
+    this.updateTodo = this.updateTodo.bind(this);
     this.deleteTodo = this.deleteTodo.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -41,6 +43,14 @@ class App extends Component {
     this.setState({
       todos: todos,
       newTodo: ''
+    });
+  }
+
+  updateTodo(index) {
+    const todo = this.state.todos[index];
+    this.setState({
+      editing: true,
+      newTodo: todo.name
     });
   }
 
@@ -70,18 +80,22 @@ class App extends Component {
           <button
             onClick={this.addTodo}
             className="btn-info mb-3 form-control">
-            Add todo
+            {this.state.editing ? 'Update todo' : 'Add todo'}
           </button>
           <ul className="list-group">
             {this.state.todos.map((item, index) => {
               return <li key={item.id} className="list-group-item">
+                <button
+                  className="btn-sm mr-4 btn btn-info"
+                  onClick={() => { this.updateTodo(index); }}
+                >U</button>
                 {item.name}
                 <button
                   className="btn-sm ml-4 btn btn-danger"
                   onClick={() => { this.deleteTodo(index); }}
                 >X</button>
               </li>;
-            })}     
+            })}
           </ul>
         </div>
       </div>
