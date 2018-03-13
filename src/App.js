@@ -23,7 +23,6 @@ class App extends Component {
     this.updateTodo = this.updateTodo.bind(this);
     this.deleteTodo = this.deleteTodo.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.generateTodoId = this.generateTodoId.bind(this);
   }
 
   async componentDidMount() {
@@ -39,23 +38,15 @@ class App extends Component {
     });
   }
 
-  generateTodoId() {
-    const lastTodo = this.state.todos[this.state.todos.length - 1];
-    if (lastTodo) {
-      return lastTodo.id + 1;
-    }
+  async addTodo() {
 
-    return 1;
-  }
+    const response = await axios.post(`${this.apiUrl}/todos`, {
+      name: this.state.newTodo
+    });
 
-  addTodo() {
-    const newTodo = {
-      name: this.state.newTodo,
-      id: this.generateTodoId()
-    };
 
     const todos = this.state.todos;
-    todos.push(newTodo);
+    todos.push(response.data);
 
     this.setState({
       todos: todos,
