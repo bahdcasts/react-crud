@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
@@ -23,6 +24,13 @@ class App extends Component {
     this.deleteTodo = this.deleteTodo.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.generateTodoId = this.generateTodoId.bind(this);
+  }
+
+  async componentDidMount() {
+    const response = await axios.get(`${this.apiUrl}/todos`);
+    this.setState({
+      todos: response.data
+    });
   }
 
   handleChange(event) {
