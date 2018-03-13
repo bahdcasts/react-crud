@@ -64,13 +64,14 @@ class App extends Component {
     });
   }
 
-  updateTodo() {
+  async updateTodo() {
     const todo = this.state.todos[this.state.editingIndex];
 
-    todo.name = this.state.newTodo;
-
+    const response = await axios.put(`${this.apiUrl}/todos/${todo.id}`, {
+      name: this.state.newTodo
+    });
     const todos = this.state.todos;
-    todos[this.state.editingIndex] = todo;
+    todos[this.state.editingIndex] = response.data;
     this.setState({
       todos,
       editing: false,
