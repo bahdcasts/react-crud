@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import ListItem from './ListItem';
+
 class App extends Component {
   constructor() {
     super();
@@ -113,17 +115,12 @@ class App extends Component {
             !this.state.editing &&
             <ul className="list-group">
               {this.state.todos.map((item, index) => {
-                return <li key={item.id} className="list-group-item">
-                  <button
-                    className="btn-sm mr-4 btn btn-info"
-                    onClick={() => { this.editTodo(index); }}
-                  >U</button>
-                  {item.name}
-                  <button
-                    className="btn-sm ml-4 btn btn-danger"
-                    onClick={() => { this.deleteTodo(index); }}
-                  >X</button>
-                </li>;
+                return <ListItem
+                  key={item.id}
+                  item={item}
+                  editTodo={() => { this.editTodo(index); }}
+                  deleteTodo={() => { this.deleteTodo(index); }}
+                />;
               })}
             </ul>
           }
