@@ -12,16 +12,10 @@ class App extends Component {
       editing: false,
       editingIndex: null,
       notification: null,
-      todos: [{
-        id: 1, name: 'Play golf'
-      }, {
-        id: 2, name: 'Buy some clothes'
-      }, {
-        id: 3, name: 'Write some code'
-      }, {
-        id: 4, name: 'Watch Bahdcasts'
-      }]
+      todos: []
     };
+
+    this.apiUrl = 'https://5aa775d97f6fcb0014ee249e.mockapi.io';
 
     this.alert = this.alert.bind(this);
     this.addTodo = this.addTodo.bind(this);
