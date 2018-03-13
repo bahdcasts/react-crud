@@ -24,6 +24,7 @@ class App extends Component {
     this.updateTodo = this.updateTodo.bind(this);
     this.deleteTodo = this.deleteTodo.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.generateTodoId = this.generateTodoId.bind(this);
   }
 
   handleChange(event) {
@@ -32,10 +33,19 @@ class App extends Component {
     });
   }
 
+  generateTodoId() {
+    const lastTodo = this.state.todos[this.state.todos.length - 1];
+    if (lastTodo) {
+      return lastTodo.id + 1;
+    }
+
+    return 1;
+  }
+
   addTodo() {
     const newTodo = {
       name: this.state.newTodo,
-      id: this.state.todos[this.state.todos.length - 1].id + 1
+      id: this.generateTodoId()
     };
 
     const todos = this.state.todos;
