@@ -131,7 +131,9 @@ class App extends Component {
           />
           <button
             onClick={this.state.editing ? this.updateTodo : this.addTodo}
-            className="btn-info mb-3 form-control">
+            className="btn-success mb-3 form-control"
+            disabled={this.state.newTodo.length < 5}
+          >
             {this.state.editing ? 'Update todo' : 'Add todo'}
           </button>
           {
