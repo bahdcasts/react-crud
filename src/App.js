@@ -11,6 +11,7 @@ class App extends Component {
       newTodo: '',
       editing: false,
       editingIndex: null,
+      notification: null,
       todos: [{
         id: 1, name: 'Play golf'
       }, {
@@ -22,6 +23,7 @@ class App extends Component {
       }]
     };
 
+    this.alert = this.alert.bind(this);
     this.addTodo = this.addTodo.bind(this);
     this.updateTodo = this.updateTodo.bind(this);
     this.deleteTodo = this.deleteTodo.bind(this);
@@ -57,6 +59,7 @@ class App extends Component {
       todos: todos,
       newTodo: ''
     });
+    this.alert('Todo added successfully.');
   }
 
   editTodo(index) {
@@ -81,6 +84,19 @@ class App extends Component {
       editingIndex: null,
       newTodo: ''
     });
+    this.alert('Todo updated successfully.');
+  }
+
+  alert(notification) {
+    this.setState({
+      notification
+    });
+
+    setTimeout(() => {
+      this.setState({
+        notification: null
+      });
+    }, 2000);
   }
 
   deleteTodo(index) {
@@ -88,6 +104,7 @@ class App extends Component {
     delete todos[index];
 
     this.setState({ todos });
+    this.alert('Todo deleted successfully.');
   }
 
   render() {
@@ -98,6 +115,12 @@ class App extends Component {
           <h1 className="App-title">CRUD React</h1>
         </header>
         <div className="container">
+          {
+            this.state.notification &&
+            <div className="alert mt-3 alert-success">
+              <p className="text-center">{this.state.notification}</p>
+            </div>
+          }
           <input
             type="text"
             name="todo"
