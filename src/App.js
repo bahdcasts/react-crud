@@ -46,12 +46,16 @@ class App extends Component {
     });
   }
 
-  updateTodo(index) {
+  editTodo(index) {
     const todo = this.state.todos[index];
     this.setState({
       editing: true,
       newTodo: todo.name
     });
+  }
+
+  updateTodo() {
+
   }
 
   deleteTodo(index) {
@@ -78,25 +82,28 @@ class App extends Component {
             value={this.state.newTodo}
           />
           <button
-            onClick={this.addTodo}
+            onClick={this.state.editing ? this.updateTodo : this.addTodo}
             className="btn-info mb-3 form-control">
             {this.state.editing ? 'Update todo' : 'Add todo'}
           </button>
-          <ul className="list-group">
-            {this.state.todos.map((item, index) => {
-              return <li key={item.id} className="list-group-item">
-                <button
-                  className="btn-sm mr-4 btn btn-info"
-                  onClick={() => { this.updateTodo(index); }}
-                >U</button>
-                {item.name}
-                <button
-                  className="btn-sm ml-4 btn btn-danger"
-                  onClick={() => { this.deleteTodo(index); }}
-                >X</button>
-              </li>;
-            })}
-          </ul>
+          {
+            !this.state.editing &&
+            <ul className="list-group">
+              {this.state.todos.map((item, index) => {
+                return <li key={item.id} className="list-group-item">
+                  <button
+                    className="btn-sm mr-4 btn btn-info"
+                    onClick={() => { this.editTodo(index); }}
+                  >U</button>
+                  {item.name}
+                  <button
+                    className="btn-sm ml-4 btn btn-danger"
+                    onClick={() => { this.deleteTodo(index); }}
+                  >X</button>
+                </li>;
+              })}
+            </ul>
+          }
         </div>
       </div>
     );
